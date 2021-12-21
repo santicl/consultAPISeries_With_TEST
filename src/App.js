@@ -1,24 +1,43 @@
-import logo from './logo.svg';
+import React, { useState, useEffect, Fragment } from 'react';
 import './App.css';
 
 function App() {
+
+    const url = 'https://kitsu.io/api/edge/trending/anime'
+    const [ series, setSeries ] = useState([])
+
+    useEffect(() => {
+        getSeries()
+    })
+
+    function getSeries() {
+        fetch(url)
+        .then(response => response.json())
+        .then(response => {
+            const { data = [] } = response
+            setSeries(data)
+        })
+    }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+    <h1 className="App">Pelis - App</h1>
+    <section>
+        <div>
+            {
+                series.map(serie => {
+                    return (
+                        <div key={serie.id}>
+                            <h1>{serie.attributes.titles.en}</h1>
+                            <img src={serie.attributes.posterImage.small} />
+                        </div>
+                    )
+                })
+            }
+        </div>
+    </section>
+    </Fragment>
   );
 }
 
