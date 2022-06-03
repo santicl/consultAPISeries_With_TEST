@@ -1,8 +1,9 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import { React, useState, useEffect, Fragment }  from 'react';
+import { Dataset } from './data'
 import './App.css';
 
 function App() {
-
+    console.log(Dataset)
     const url = 'https://kitsu.io/api/edge/trending/anime'
     const [ series, setSeries ] = useState([])
 
@@ -26,6 +27,7 @@ function App() {
     <section>
         <div>
             {
+                
                 series.map(serie => {
                     return (
                         <div key={serie.id}>
@@ -40,5 +42,4 @@ function App() {
     </Fragment>
   );
 }
-
 export default App;

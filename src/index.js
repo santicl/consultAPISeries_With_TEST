@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { React, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import Navigation from './nav';
 import Header from './header';
