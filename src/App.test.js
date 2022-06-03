@@ -1,14 +1,20 @@
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import App from './App';
-import { dataSet } from "./data"
+import { render, screen } from '@testing-library/react'
+import App from './App'
+import Data from "./Dataset"
 
 describe('dataSet contains data', () => {
-    it('Show to APIDATA its correct in front', () => {
+    beforeAll(() => jest.spyOn(window, 'fetch'))
+    it('Show to APIDATA its correct in front', async () => {
+        window.fetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => Data
+        })
         render(<App />)
-        for (const serie of dataSet) {
-            console.log(serie.attributes.titles.en)
-            expect(screen.getByText(serie.attributes.titles.en)).toBeInTheDocument()
+        expect(window.fetch).toHaveBeenCalledTimes(1)
+        expect(window.fetch).toHaveBeenCalledWith('https://kitsu.io/api/edge/trending/anime')
+
+        for (const data of Data) {
+            expect(screen.getByText(data.attributes.titles.en)).toBeInTheDocument()
         }
     })
 })
