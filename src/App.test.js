@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import App from './App'
-import Data from "./Dataset"
+import { Data } from "./Dataset"
 
 describe('dataSet contains data', () => {
     beforeAll(() => jest.spyOn(window, 'fetch'))
